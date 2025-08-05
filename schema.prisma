@@ -1,0 +1,54 @@
+// Definición del origen de datos (base de datos SQLite)
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// Generador del cliente de Prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Modelo de Usuario
+model User {
+  id           String        @id @default(uuid())
+  name         String
+  email        String        @unique
+  applications Application[]
+  savedJobs    SavedJob[]
+}
+
+// Modelo de Aplicación a un empleo
+model Application {
+  id        String   @id @default(uuid())
+  userId    String
+  jobId     String
+  status    String   @default("EN_REVISION") // EN_REVISION, CONTACTADO, RECHAZADO
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  job       Job      @relation(fields: [jobId], references: [id])
+}
+
+// Modelo de Empleo
+model Job {
+  id           String        @id @default(uuid())
+  title        String
+  description  String
+  createdAt    DateTime      @default(now())
+
+  applications Application[]
+  savedBy      SavedJob[]
+}
+
+// Modelo de trabajos guardados por el usuario
+model SavedJob {
+  id     String @id @default(uuid())
+  userId String
+  jobId  String
+
+  user   User   @relation(fields: [userId], references: [id])
+  job    Job    @relation(fields: [jobId], references: [id])
+
+  @@unique([userId, jobId]) // Evita duplicados de guardado
+}

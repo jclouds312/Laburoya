@@ -1,0 +1,29 @@
+workflows:
+  android-build:
+    name: Build Android APK
+    environment:
+      vars:
+        PROJECT_DIR: "android"  # Ruta al proyecto Android
+      java: 17
+    scripts:
+      - name: Clonar submódulos (si los hay)
+        script: git submodule update --init --recursive
+
+      - name: Dar permisos a gradlew
+        script: chmod +x $PROJECT_DIR/gradlew
+
+      - name: Construir APK
+        script: |
+          cd $PROJECT_DIR
+          ./gradlew assembleDebug
+
+    artifacts:
+      - android/app/build/outputs/apk/debug/app-debug.apk
+
+    publishing:
+      email:
+        recipients:
+          - johnatanvallejomarulanda@gmail.com
+        notify:
+          success: true
+          failure: true

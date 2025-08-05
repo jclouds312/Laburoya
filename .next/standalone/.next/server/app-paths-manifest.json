@@ -1,0 +1,15 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/admin/register/page": "app/admin/register/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/company/dashboard/page": "app/company/dashboard/page.js",
+  "/page": "app/page.js",
+  "/premium-post/page": "app/premium-post/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/subscriptions/page": "app/subscriptions/page.js",
+  "/register/page": "app/register/page.js",
+  "/company/[id]/page": "app/company/[id]/page.js",
+  "/jobs/[id]/page": "app/jobs/[id]/page.js",
+  "/login/page": "app/login/page.js"
+}

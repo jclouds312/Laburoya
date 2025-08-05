@@ -1,0 +1,13 @@
+node_modules/
+*.log
+*.lock
+*.apk
+android/.gradle/
+android/build/
+.pnpm-debug.log
+npm-debug.log
+.DS_Store
+*.keystore
+*.zip
+*.tar
+*.tgz

@@ -1,0 +1,101 @@
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id                  String       @id @default(cuid())
+  name                String
+  email               String       @unique
+  password            String
+  role                String       @default("user") // 'user', 'company', 'admin'
+  avatar              String?
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  emailVerified       DateTime?
+  status              String?      // 'VERIFICADO', 'PENDIENTE', 'SUSPENDIDO'
+  phone               String?
+  location            String?
+  professionalSummary String?
+  experience          String?
+  companyProfileId    String?      @unique
+  companyProfile      CompanyProfile? @relation(fields: [companyProfileId], references: [id])
+  subscriptionPlan    String?
+  subscriptionUntil   DateTime?
+  applications        Application[]
+  savedJobIds         String[]
+  savedJobs           Job[]        @relation("SavedJobs", fields: [savedJobIds], references: [id])
+}
+
+model CompanyProfile {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  cuit        String   @unique
+  address     String?
+  city        String?
+  province    String?
+  phone       String?
+  logoUrl     String?
+  description String?
+  status      String   // 'Activa', 'Inactiva', 'Pendiente'
+  userId      String?  @unique
+  user        User?
+  jobs        Job[]
+}
+
+model Job {
+  id                  String       @id @default(cuid())
+  title               String
+  description         String
+  company             String
+  location            String
+  type                String       // 'Full-time', 'Part-time', etc.
+  category            String
+  salary              String?
+  whatsapp            String?
+  isFeatured          Boolean      @default(false)
+  isNew               Boolean      @default(true)
+  companyLogo         String?
+  imageUrl            String?
+  desiredProfile      String?
+  horario             String?
+  modalidad           String?
+  direccionCompleta   String?
+  applicantsCount     Int          @default(0)
+  skills              Json?        // ["React", "Node.js"]
+  customQuestions     Json?        // ["Pregunta 1", "Pregunta 2"]
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  
+  companyProfileId    String?
+  companyProfile      CompanyProfile? @relation(fields: [companyProfileId], references: [id])
+  
+  applications        Application[]
+  
+  savedBy             User[]       @relation("SavedJobs")
+}
+
+model Application {
+  id              String   @id @default(cuid())
+  createdAt       DateTime @default(now())
+  status          String   @default("EN_REVISION") // 'EN_REVISION', 'CONTACTADO', 'RECHAZADO'
+  customAnswers   Json?    // [{ question: "...", answer: "..." }]
+  
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  jobId           String
+  job             Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, jobId])
+}
+
+    

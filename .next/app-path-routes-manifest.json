@@ -1,0 +1,15 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/favicon.ico/route": "/favicon.ico",
+  "/admin/register/page": "/admin/register",
+  "/admin/page": "/admin",
+  "/company/dashboard/page": "/company/dashboard",
+  "/page": "/",
+  "/premium-post/page": "/premium-post",
+  "/profile/page": "/profile",
+  "/subscriptions/page": "/subscriptions",
+  "/register/page": "/register",
+  "/company/[id]/page": "/company/[id]",
+  "/jobs/[id]/page": "/jobs/[id]",
+  "/login/page": "/login"
+}

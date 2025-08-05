@@ -1,0 +1,187 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+
+@keyframes keyframes-border-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@layer utilities {
+  .card-neon-border {
+    @apply relative overflow-hidden p-px;
+  }
+  .card-neon-border::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%;
+    height: 150%;
+    background: conic-gradient(from 0deg, hsl(270, 85%, 65%), hsl(140, 70%, 55%), hsl(210, 85%, 60%), hsl(45, 100%, 60%), hsl(0, 0%, 100%), hsl(270, 85%, 65%));
+    animation: keyframes-border-spin 8s linear infinite;
+    z-index: -1;
+  }
+  .card-neon-border > * {
+    @apply h-full w-full rounded-[calc(var(--radius)-1px)];
+    background: hsl(var(--card));
+    z-index: 1;
+  }
+   .card-marble-border {
+    @apply relative overflow-hidden rounded-lg p-px shadow-lg;
+  }
+  .card-marble-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px; /* The border width */
+    background: conic-gradient(from 180deg at 50% 50%, #d4af37, #c0c0c0, #ffffff, #d4af37);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.5;
+    animation: keyframes-border-spin 10s linear infinite;
+  }
+  .card-marble-border > * {
+    background: linear-gradient(145deg, hsl(var(--card)) 70%, hsl(var(--card) / 0.9));
+    border-radius: calc(var(--radius) - 2px);
+    z-index: 1;
+  }
+}
+
+
+@layer base {
+  :root {
+    --background: 280 60% 6%;   /* Deeper carbon purple */
+    --foreground: 0 0% 98%;
+
+    --card: 280 50% 10%;      /* Slightly darker card */
+    --card-foreground: 0 0% 98%;
+    
+    --popover: 280 60% 8%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 270 85% 65%;   /* Metallic bluish-purple */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 280 50% 18%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 280 50% 18%;
+    --muted-foreground: 0 0% 60%;
+    
+    --accent: 270 85% 70%;     /* Lighter accent for hover */
+    --accent-foreground: 0 0% 98%;
+    
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 280 50% 18%;
+    --input: 280 50% 15%;
+    --ring: 270 85% 65%;      /* Neon border effect */
+    
+    --chart-1: 270 85% 65%;
+    --chart-2: 160 70% 45%;
+    --chart-3: 340 80% 55%;
+    --chart-4: 20 80% 55%;
+    --chart-5: 290 80% 55%;
+    
+    --radius: 0.75rem;
+
+    --sidebar-background: 280 60% 8%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 270 85% 65%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 280 50% 18%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 280 50% 18%;
+    --sidebar-ring: 270 85% 65%;
+  }
+ 
+  .dark {
+    --background: 280 60% 6%;   /* Deeper carbon purple */
+    --foreground: 0 0% 98%;
+
+    --card: 280 50% 10%;      /* Slightly darker card */
+    --card-foreground: 0 0% 98%;
+    
+    --popover: 280 60% 8%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 270 85% 65%;   /* Metallic bluish-purple */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 280 50% 18%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 280 50% 18%;
+    --muted-foreground: 0 0% 60%;
+    
+    --accent: 270 85% 70%;     /* Lighter accent for hover */
+    --accent-foreground: 0 0% 98%;
+    
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 280 50% 18%;
+    --input: 280 50% 15%;
+    --ring: 270 85% 65%;      /* Neon border effect */
+    
+    --chart-1: 270 85% 65%;
+    
+    --sidebar-background: 280 60% 8%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 270 85% 65%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 280 50% 18%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 280 50% 18%;
+    --sidebar-ring: 270 85% 65%;
+  }
+
+  .theme-premium .card-title-premium {
+    @apply text-amber-400;
+  }
+   .theme-premium {
+    --card: 345 20% 8%; /* Dark wine red background for premium cards */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-transparent text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+html {
+  background: linear-gradient(160deg, hsl(275, 55%, 12%) 0%, hsl(285, 45%, 8%) 100%);
+}
+
+input {
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--input));
+}
+
+input::placeholder {
+    color: hsl(var(--muted-foreground));
+    opacity: 0.8;
+}
